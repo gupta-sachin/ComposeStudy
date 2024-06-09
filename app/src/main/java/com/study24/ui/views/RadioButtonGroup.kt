@@ -31,7 +31,8 @@ fun RadioButtonGroup(
     onOptionSelected: (Int, String) -> Unit
 ) {
     // https://youtu.be/fFLBCgoHHys
-    // TODO:LEARN: if savedSelectedIndex's value is changed, relevant composable(s) will be re-composed.
+    // LEARN: if savedSelectedIndex's value is changed, relevant composable(s) will be re-composed.
+    // LEARN: here, due to 'by', savedSelectedIndex is a var Int, not a val MutableState<Int>.
     var savedSelectedIndex by rememberSaveable { mutableStateOf(selectedIndex) }
 
     Column {
