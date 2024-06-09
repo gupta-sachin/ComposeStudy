@@ -13,7 +13,7 @@ import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -33,7 +33,7 @@ fun RadioButtonGroup(
     // https://youtu.be/fFLBCgoHHys
     // LEARN: if savedSelectedIndex's value is changed, relevant composable(s) will be re-composed.
     // LEARN: here, due to 'by', savedSelectedIndex is a var Int, not a val MutableState<Int>.
-    var savedSelectedIndex by rememberSaveable { mutableStateOf(selectedIndex) }
+    var savedSelectedIndex by rememberSaveable { mutableIntStateOf(selectedIndex) }
 
     Column {
         logD("Composable", "RadioButtonGroup > Column")
@@ -47,12 +47,15 @@ fun RadioButtonGroup(
         Column(Modifier.selectableGroup()) {
             logD("Composable", "RadioButtonGroup > Column > Column")
             options.forEachIndexed { index, option ->
+
+                val isSelected = index == savedSelectedIndex // still each row gets recomposed
+
                 Row(
                     Modifier
                         .fillMaxWidth()
                         .height(56.dp)
                         .selectable(
-                            selected = (index == savedSelectedIndex),
+                            selected = isSelected,
                             onClick = {
                                 savedSelectedIndex = index
                                 onOptionSelected(index, option)
@@ -64,7 +67,7 @@ fun RadioButtonGroup(
                 ) {
                     logD("Composable", "RadioButtonGroup > Column > Column > Row($index)")
                     RadioButton(
-                        selected = (index == savedSelectedIndex),
+                        selected = isSelected,
                         onClick = null // null recommended for accessibility with screen readers
                     )
                     Text(
