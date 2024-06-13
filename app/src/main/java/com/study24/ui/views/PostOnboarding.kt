@@ -1,12 +1,11 @@
 package com.study24.ui.views
 
-import android.util.Log
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.study24.utils.logD
 
@@ -14,24 +13,20 @@ import com.study24.utils.logD
 fun PostOnboarding(modifier: Modifier = Modifier) {
     logD("Composable", "PostOnboarding")
 
-    Column(modifier.padding(5.dp)) {
+    val names: List<String> = List(1000) { "$it" }
 
-        logD("Composable", "PostOnboarding > Column")
+    LazyColumn(modifier = modifier.padding(vertical = 4.dp)) {
 
-        val names = listOf("World", "Compose")
+        logD("Composable", "PostOnboarding > LazyColumn")
 
-        names.forEachIndexed { index, name ->
+        items(items = names) { name ->
             Greeting(name = name)
-            if (index < names.size - 1) {
-                Spacer(modifier = Modifier.height(5.dp))
-            }
         }
-
-        RadioButtonGroup(
-            options = listOf("Option 1", "Option 2", "Option 3"),
-            onOptionSelected = { index, option ->
-                Log.d("PostOnboarding", "Selected #$index: $option")
-            }
-        )
     }
+}
+
+@Preview
+@Composable
+fun PostOnboardingPreview() {
+    PostOnboarding()
 }

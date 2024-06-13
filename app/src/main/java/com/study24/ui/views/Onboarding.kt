@@ -1,8 +1,11 @@
 package com.study24.ui.views
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -24,7 +27,15 @@ fun OnboardingScreen(modifier: Modifier = Modifier, onContinueClicked: () -> Uni
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("Welcome to the Basics Codelab!")
+        Text("Welcome to the Compose Study!")
+        Spacer(modifier = Modifier.height(24.dp))
+        RadioButtonGroup(
+            label = "What do you want to do?",
+            options = listOf("Codelab", "Study", "Tests"),
+            onOptionSelected = { index, option ->
+                Log.d("OnboardingScreen", "Selected #$index: $option")
+            }
+        )
         Button(
             modifier = Modifier.padding(vertical = 24.dp),
             onClick = onContinueClicked

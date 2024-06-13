@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material3.MaterialTheme
@@ -26,6 +27,7 @@ import com.study24.utils.logD
 
 @Composable
 fun RadioButtonGroup(
+    label: String,
     options: List<String>,
     selectedIndex: Int = 0,
     onOptionSelected: (Int, String) -> Unit
@@ -38,11 +40,11 @@ fun RadioButtonGroup(
     Column {
         logD("Composable", "RadioButtonGroup > Column")
         Text(
-            text = "Select a flowType:",
+            text = label,
             style = MaterialTheme.typography.bodyLarge,
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(2.dp))
 
         Column(Modifier.selectableGroup()) {
             logD("Composable", "RadioButtonGroup > Column > Column")
@@ -53,7 +55,8 @@ fun RadioButtonGroup(
                 Row(
                     Modifier
                         .fillMaxWidth()
-                        .height(56.dp)
+                        .padding(2.dp)
+                        .wrapContentHeight()
                         .selectable(
                             selected = isSelected,
                             onClick = {
@@ -85,6 +88,10 @@ fun RadioButtonGroup(
 @Composable
 fun RadioButtonGroupPreview() {
     Study24Theme {
-        RadioButtonGroup(listOf("A", "B", "C"), 1) { _, _ -> }
+        RadioButtonGroup(
+            "Select an option from below:",
+            listOf("Option 1", "Option 2", "Option 3"),
+            1
+        ) { _, _ -> }
     }
 }
